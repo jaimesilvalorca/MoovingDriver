@@ -68,7 +68,7 @@ export const ProfileInfoScreen = () => {
             <Text style={styles.formTextDescription}>Correo Electronico</Text>
           </View>
         </View>
-        <View style={{ ...styles.formInfo, marginTop: 25, marginBottom: 40 }}>
+        <View style={{ ...styles.formInfo, marginTop: 25}}>
           <Image
             source={require('../../../../../assets/phone.png')}
             style={styles.formImage}
@@ -76,16 +76,25 @@ export const ProfileInfoScreen = () => {
           <View style={styles.formContent}>
             <Text>{(driver?.phone)?.toLocaleUpperCase()}</Text>
             <Text style={styles.formTextDescription}>Correo Electronico</Text>
-            <Text>CarInfo</Text>
-            <Text>{driver?.car.make}</Text>
-            <Text>{driver?.car.modelCar}</Text>
-            <Text>{driver?.car.plate}</Text>
-            <Text>{driver?.car.year}</Text>
 
           </View>
         </View>
+        <View style={{ ...styles.formInfo, marginTop: 25, marginBottom: 40 }}>
+          <Image
+            source={require('../../../../../assets/car.png')}
+            style={styles.formImage}
+          />
+          <View style={styles.formContent}>
+            <Text>{(driver?.car.make)?.toLocaleUpperCase()} {(driver?.car.modelCar)?.toLocaleUpperCase()} {(driver?.car.plate)?.toLocaleUpperCase()} {(driver?.car.year)}</Text>
+            <Text style={styles.formTextDescription}>Vehiculo Registrado</Text>
+
+          </View>
+        </View>
+        
         <RoundedButton
-          onPress={() => { }}
+          onPress={() => {
+            navigation.navigate('ProfileUpdateScreen')
+           }}
           text='ACTUALIZAR INFORMACIÓN'
         />
       </View>
