@@ -7,7 +7,7 @@ export interface Driver {
     phone:           string;
     email:           string;
     image?:          string;
-    car:             Car;
+    car:             Car
     role:            string;
     password:        string;
     confirmPassword: string;
