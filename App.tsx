@@ -4,11 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './src/Presentation/views/home/Home';
 import { RegisterScreen } from './src/Presentation/views/register/Register';
 import { DriverTabsNavigator } from './src/Presentation/navigator/DriverTabsNavigator';
+import { ProfileUpdateScreen } from './src/Presentation/views/profile/update/ProfileUpdate';
 
 export type RootStackParamList = {
   HomeScreen: undefined,
   RegisterScreen: undefined,
   DriverTabsNavigator: undefined
+  ProfileUpdateScreen: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -29,11 +31,19 @@ const App = () => {
           options={{
             headerShown: true,
             title: 'Registro de usuarios'
-          }}  
+          }}
         />
-          <Stack.Screen
+        <Stack.Screen
           name='DriverTabsNavigator'
           component={DriverTabsNavigator}
+        />
+        <Stack.Screen
+          name='ProfileUpdateScreen'
+          component={ProfileUpdateScreen}
+          options={{
+            headerShown:true,
+            title: 'Actualizar usuario'
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
