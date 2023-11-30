@@ -23,12 +23,9 @@ export const HomeScreen = ({navigation,route}:Props) => {
     }, [errorMessage])
 
     useEffect(() => {
-        if(driver?.id !== null && driver?.id !== undefined){
+        if(driver?.id !== null && driver?.id !== undefined && driver.id !== ''){
             navigation.replace('DriverTabsNavigator')
-        }
-
-
-      
+        }      
     }, [driver])
     
 

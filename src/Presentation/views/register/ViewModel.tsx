@@ -28,7 +28,7 @@ const RegisterViewModel = () => {
     const [file,setFile] = useState<ImagePicker.ImagePickerAsset>()
 
     const {driver,getDriverSession} =  useDriverLocal();
-    console.log('Usuario de Sesion',driver)
+
 
     const pickImage = async () =>{
         let result = await ImagePicker.launchImageLibraryAsync({

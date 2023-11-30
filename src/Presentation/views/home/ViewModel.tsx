@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth'
 import { SaveDriverLocalUseCase } from '../../../Domain/useCases/driverLocal/SaveDriverLocal'
 import { useDriverLocal } from '../../hooks/useDriverLocal'
 import { Linking } from 'react-native'
+import { DriverContext } from '../../context/DriverContext'
 
 
 const HomeViewModel = () => {
 
-    const { driver, getDriverSession } = useDriverLocal();
-    console.log('Usuario de Sesion', driver)
+    // const { driver, getDriverSession } = useDriverLocal();
+    const {driver,saveDriverSession,getDriverSession} = useContext(DriverContext)
+    
 
     const [values, setValues] = useState({
         email: '',
@@ -28,8 +30,7 @@ const HomeViewModel = () => {
             if (!response.success) {
                 setErrorMessage(response.message)
             } else {
-                await SaveDriverLocalUseCase(response.data)
-                getDriverSession();
+                saveDriverSession(response.data)
             }
         }
     }

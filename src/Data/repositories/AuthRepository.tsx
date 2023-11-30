@@ -26,8 +26,6 @@ export class AuthRepositoryImpl implements AuthRepository{
 
     async registerWithImage(driver: Driver, file: ImagePicker.ImagePickerAsset): Promise<ReponseAPIMooving> {
         try {
-
-            
             const data = new FormData();
 
             // @ts-ignore

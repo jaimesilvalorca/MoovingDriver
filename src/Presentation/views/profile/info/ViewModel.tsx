@@ -1,17 +1,14 @@
-import React from 'react'
+import React,{useContext}from 'react'
 import { RemoveDriverLocalUseCase } from '../../../../Domain/useCases/driverLocal/RemoveDriverLocal'
 import { useDriverLocal } from '../../../hooks/useDriverLocal';
+import { DriverContext } from '../../../context/DriverContext';
 
 const ProfileInfoViewModel = () => {
 
-  const {driver} = useDriverLocal();
-
-    const removeSession = async () =>{
-        await RemoveDriverLocalUseCase();
-    }
+  const {driver,removeDriverSession} = useContext(DriverContext);
 
   return {
-    removeSession,
+    removeDriverSession,
     driver
   }
 }

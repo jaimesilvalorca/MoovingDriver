@@ -1,40 +1,23 @@
-import { useState } from 'react'
-// import { ApiMooving } from '../../../Data/sources/remote/api/ApiMooving'
-// import { RegisterAuthUseCase } from '../../../Domain/useCases/auth/RegisterAuth';
+import { useState,useContext } from 'react'
 import * as ImagePicker from 'expo-image-picker'
-import { RegisterWithImageAuthUseCase } from '../../../../Domain/useCases/auth/RegisterWithImageAuth';
 import { SaveDriverLocalUseCase } from '../../../../Domain/useCases/driverLocal/SaveDriverLocal';
 import { useDriverLocal } from '../../../hooks/useDriverLocal';
+import { UpdateDriverUseCase } from '../../../../Domain/useCases/driver/UpdateDriver';
+import { UpdateWithImageDriverUseCase } from '../../../../Domain/useCases/driver/UpdateWithImageDriver';
+import { Driver } from '../../../../Domain/entities/Driver';
+import { ReponseAPIMooving } from '../../../../Data/sources/remote/models/ResponseApiMooving';
+import { DriverContext } from '../../../context/DriverContext';
 
-const ProfileUpdateViewModel = () => {
+const ProfileUpdateViewModel = (driver:Driver) => {
 
-    const[erroMessage, setErrorMessage] = useState('')
 
-    const [values, setValues] = useState({
-        name: '',
-        lastname: '',
-        phone: '',
-        email: '',
-        image: '',
-        role: '',
-        car: {
-            make: '',
-            modelCar:'',
-            year:'',
-            plate:''
-        },
-        password: '',
-        confirmPassword: '',
-
-    })
-
+    const [erroMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+    const [values, setValues] = useState(driver)
     const [loading,setLoading] = useState(false)
-
     const [file,setFile] = useState<ImagePicker.ImagePickerAsset>()
-
-    const {driver,getDriverSession} =  useDriverLocal();
-    console.log('Usuario de Sesion',driver)
-
+    const {getDriverSession} = useDriverLocal()
+    const {saveDriverSession} = useContext(DriverContext)
     const pickImage = async () =>{
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -66,22 +49,42 @@ const ProfileUpdateViewModel = () => {
         setValues({ ...values, [property]: value })
     }
 
-    const register = async ()=>{
-            if(isValidForm()){
-                setLoading(true)
-                // const response = await  RegisterAuthUseCase(values)
-                const response = await RegisterWithImageAuthUseCase(values,file!)
-                setLoading(false)
-                if(response.success){
-                    await SaveDriverLocalUseCase(response.data)
-                    getDriverSession()
-                    console.log('Result: ' + JSON.stringify(response))
-                }else{
-                    setErrorMessage(response.message)
-                }
-                
-            }
+    const onChangeInfoUpdate = (name:string, lastname:string, phone:string) => {
+        setValues({ ...values, name:name,lastname:lastname,phone:phone})
     }
+
+    const update = async () => {
+        try {
+          let response = {} as ReponseAPIMooving;
+      
+          if (isValidForm()) {
+            setLoading(true);
+      
+            console.log(response);
+
+      
+            if (values.image?.includes('https://')) {
+              response = await UpdateDriverUseCase(values);
+
+            } else {
+              response = await UpdateWithImageDriverUseCase(values, file!);
+            }
+      
+            setLoading(false);
+            console.log('RESULT: ' + JSON.stringify(response) + 'aqui esta la otra');
+      
+            if (response.success) {
+              saveDriverSession(response.data)
+              setSuccessMessage(response.message)
+            } else {
+              setErrorMessage(response.message);
+            }
+          }
+        } catch (error) {
+          console.error('Error in update:', error);
+        }
+      };
+      
 
     const isValidForm = () =>{
         if(values.name === ''){
@@ -96,28 +99,6 @@ const ProfileUpdateViewModel = () => {
             setErrorMessage('Ingresa tu telefono')
             return false;
         }
-        if(values.email === ''){
-            setErrorMessage('Ingresa tu email')
-            return false;
-        }
-        if(values.password === ''){
-            setErrorMessage('Ingresa la contraseña')
-            return false;
-        }
-        if(values.confirmPassword === ''){
-            setErrorMessage('Ingresa la confirmacion del password')
-            return false;
-        }
-
-        if(values.password !== values.confirmPassword){
-            setErrorMessage('las contraseñas son distintas')
-            return false;
-        }
-
-        if(values.image === ''){
-            setErrorMessage('Selecciona una imagen')
-            return false
-        }
 
         return true
     }
@@ -125,12 +106,15 @@ const ProfileUpdateViewModel = () => {
     return {
         ...values,
         onChange,
-        register,
-        erroMessage,
+        update,
         pickImage,
         takePhoto,
+        onChangeInfoUpdate,
+        successMessage,
+        erroMessage,
+        loading,
         driver,
-        loading
+        
     }
 }
 

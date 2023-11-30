@@ -14,7 +14,8 @@ interface Props extends StackScreenProps<RootStackParamList, 'ProfileUpdateScree
 
 export const ProfileUpdateScreen = ({ navigation, route }: Props) => {
 
-  const { name, lastname, image, phone, email, password, confirmPassword, onChange, register, erroMessage, pickImage, takePhoto, driver, loading } = useViewModel()
+  const {driver} = route.params;
+  const { name, lastname, image, phone, onChange, erroMessage,successMessage, pickImage, takePhoto, loading, onChangeInfoUpdate,update } = useViewModel(driver)
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -24,9 +25,13 @@ export const ProfileUpdateScreen = ({ navigation, route }: Props) => {
 
   }, [erroMessage])
 
-useEffect(() => {
-  
-}, [])
+  useEffect(() => {
+    if (successMessage != '') {
+      ToastAndroid.show(successMessage, ToastAndroid.LONG)
+    }
+
+  }, [successMessage])
+
 
   return (
     <View style={styles.container}>
@@ -43,7 +48,7 @@ useEffect(() => {
           {
             image == ''
               ? <Image
-                source={{uri:driver?.image}}
+                source={{ uri: driver?.image }}
                 style={styles.logoImage} />
               : <Image
                 source={{ uri: image }}
@@ -72,7 +77,7 @@ useEffect(() => {
             placeholder='Nombres'
             property='name'
             onChangeText={onChange}
-            value={name}
+            value={name!}
           />
 
           {/*apellidos*/}
@@ -82,7 +87,7 @@ useEffect(() => {
             placeholder='Apellidos'
             property='lastname'
             onChangeText={onChange}
-            value={lastname}
+            value={lastname!}
           />
 
           {/*Telefono*/}
@@ -93,15 +98,13 @@ useEffect(() => {
             placeholder='Telefono'
             property='phone'
             onChangeText={onChange}
-            value={phone}
+            value={phone!}
           />
 
           <View style={{ marginTop: 30 }}>
             <RoundedButton
               text='Confirmar Registro'
-              onPress={() => {
-                register()
-              }} />
+              onPress={ () => update()}/>
           </View>
         </ScrollView>
       </View>

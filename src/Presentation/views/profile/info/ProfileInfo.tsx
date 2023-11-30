@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
 import useViewModel from './ViewModel'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
@@ -13,7 +13,14 @@ export const ProfileInfoScreen = () => {
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
-  const { removeSession, driver } = useViewModel()
+  const { driver,removeDriverSession } = useViewModel()
+
+  useEffect(() => {
+    if(driver.id === ''){
+      navigation.replace('HomeScreen')
+    }
+  }, [driver])
+  
 
   return (
     <View style={styles.container}>
@@ -24,8 +31,7 @@ export const ProfileInfoScreen = () => {
       <Pressable
         style={styles.logout}
         onPress={() => {
-          removeSession()
-          navigation.replace('HomeScreen')
+          removeDriverSession()
         }}
       >
         <Image
@@ -35,7 +41,7 @@ export const ProfileInfoScreen = () => {
       </Pressable>
 
       <View style={styles.logoContainer}>
-        {driver?.image !== null ? (
+        {driver?.image !== '' ? (
           <Image
             source={{ uri: driver?.image }}
             style={styles.logoImage}
@@ -93,7 +99,7 @@ export const ProfileInfoScreen = () => {
         
         <RoundedButton
           onPress={() => {
-            navigation.navigate('ProfileUpdateScreen')
+            navigation.navigate('ProfileUpdateScreen',{driver:driver!})
            }}
           text='ACTUALIZAR INFORMACIÓN'
         />
