@@ -12,7 +12,6 @@
         {
           "photosPermission": "custom photos permission",
           "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera",
-
           "//": "Disables the microphone permission",
           "microphonePermission": false
         }
@@ -27,13 +26,35 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mooving.mooving",
+      "config": {
+        "googleMapsApiKey": "AIzaSyB78zx3lvRPlO0n2wutrM0RCaqIvk86lMk"
+      },
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mooving.mooving",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB78zx3lvRPlO0n2wutrM0RCaqIvk86lMk"
+        }
+      },
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

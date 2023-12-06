@@ -29,7 +29,6 @@ export const DriverTabsNavigator = () => {
         component={MapScreen}
         options={{
           title: 'Mapa',
-          headerShown:true,
           tabBarLabel: 'Mapa',
           tabBarIcon: ({ color }) => (
             <Image
