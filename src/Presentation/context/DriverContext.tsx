@@ -19,6 +19,7 @@ export const driverInitialState: Driver = {
         year:0,
         plate:''
     },
+    con: false,
     role: '',
     password: '',
     confirmPassword: '',

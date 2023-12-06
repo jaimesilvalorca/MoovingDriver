@@ -9,6 +9,7 @@ export interface Driver {
     image?:          string;
     car:             Car
     role:            string;
+    con:             boolean;
     password:        string;
     confirmPassword: string;
     session_token?:  string;
