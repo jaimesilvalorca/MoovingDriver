@@ -14,7 +14,7 @@ interface Props extends StackScreenProps<RootStackParamList, 'RegisterScreen'> {
 
 export const RegisterScreen = ({ navigation, route }: Props) => {
 
-  const { name, lastname, image, phone, email, password, confirmPassword, onChange, register, erroMessage, pickImage, takePhoto, driver, loading } = useViewModel()
+  const { name, lastname, image, phone, email, password, confirmPassword, onChange, register, erroMessage, pickImage, takePhoto, driver, loading,termsAndConditions } = useViewModel()
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -134,7 +134,20 @@ export const RegisterScreen = ({ navigation, route }: Props) => {
             value={confirmPassword}
             onChangeText={onChange}
           />
-          
+
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                termsAndConditions()
+              }}
+            >
+              <Text style={{ textAlign: 'center', paddingTop: 20 }}>
+                Al presionar confirmar registro estaras aceptando los terminos y condiciones
+              </Text>
+            </TouchableOpacity>
+
+          </View>
+
 
           <View style={{ marginTop: 30 }}>
             <RoundedButton

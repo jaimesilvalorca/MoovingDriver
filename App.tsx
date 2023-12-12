@@ -10,6 +10,7 @@ import { DriverProvider } from './src/Presentation/context/DriverContext';
 
 import { MapScreen } from './src/Presentation/views/mapScreen/Map';
 import TripDetail from './src/Presentation/views/tripDetail/TripDetail';
+import UpdateCarScreen from './src/Presentation/views/profile/updateCar/UpdateCar';
 
 
 export type RootStackParamList = {
@@ -19,8 +20,8 @@ export type RootStackParamList = {
   DriverAddressListScreen: undefined,
   ProfileUpdateScreen: { driver: Driver },
   MapScreen: { driver: Driver },
-  TripDetail: undefined
-  
+  TripDetail: undefined,
+  UpdateCarScreen: { driver: Driver }
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -72,6 +73,16 @@ const App = () => {
               title: 'Punto de referencia'
             }}
           />
+          <Stack.Screen
+            name='UpdateCarScreen'
+            component={UpdateCarScreen}
+            options={{
+              headerShown: true,
+              title: 'Car Screen Update '
+            }}
+          />
+
+
 
         </Stack.Navigator>
       </DriverState>

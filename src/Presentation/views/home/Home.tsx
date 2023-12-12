@@ -12,7 +12,7 @@ interface Props extends StackScreenProps<RootStackParamList,'HomeScreen'>{}
 
 export const HomeScreen = ({navigation,route}:Props) => {
 
-    const {email,password,onChange,errorMessage,login,driver,forggotPassword} = useViewModel()
+    const {email,password,onChange,errorMessage,login,driver,forggotPassword,termsAndConditions} = useViewModel()
 
 
     
@@ -85,6 +85,18 @@ export const HomeScreen = ({navigation,route}:Props) => {
                     >
                     <Text style={{textAlign:'center',paddingTop:10}}>
                         ¿Olvidaste tu contraseña?
+                    </Text>
+                    </TouchableOpacity>
+
+                </View>
+                <View>
+                    <TouchableOpacity
+                    onPress={()=>{
+                        termsAndConditions()
+                    }}
+                    >
+                    <Text style={{textAlign:'center',paddingTop:10}}>
+                        Terminos y condiciones
                     </Text>
                     </TouchableOpacity>
 

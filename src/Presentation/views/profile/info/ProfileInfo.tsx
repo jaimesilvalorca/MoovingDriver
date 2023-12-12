@@ -91,7 +91,7 @@ export const ProfileInfoScreen = () => {
             style={styles.formImage}
           />
           <TouchableOpacity
-          onPress={()=>{navigation.navigate('ProfileUpdateScreen',{driver:driver})}}
+          onPress={()=>{navigation.navigate('UpdateCarScreen',{driver:driver})}}
           >
           <View style={styles.formContent}>
             <Text>{(driver?.car.make)?.toLocaleUpperCase()} {(driver?.car.modelCar)?.toLocaleUpperCase()} {(driver?.car.plate)?.toLocaleUpperCase()} {(driver?.car.year)}</Text>

@@ -14,6 +14,7 @@ export const driverInitialState: Driver = {
     email: '',
     image: '',
     car: {
+        _id:'',
         make:'',
         modelCar:'',
         year:0,

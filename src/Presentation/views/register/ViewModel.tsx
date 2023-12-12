@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { RegisterWithImageAuthUseCase } from '../../../Domain/useCases/auth/RegisterWithImageAuth';
 import { SaveDriverLocalUseCase } from '../../../Domain/useCases/driverLocal/SaveDriverLocal';
 import { useDriverLocal } from '../../hooks/useDriverLocal';
+import { Linking } from 'react-native';
 
 const RegisterViewModel = () => {
 
@@ -78,6 +79,10 @@ const RegisterViewModel = () => {
             }
     }
 
+    const termsAndConditions = () => {
+        Linking.openURL('http://45.7.231.169:3000/api/terms').catch((err) => console.error('Error al abrir el enlace', err));
+    }
+
     const isValidForm = () =>{
         if(values.name === ''){
             setErrorMessage('Ingresa tu nombre')
@@ -125,7 +130,8 @@ const RegisterViewModel = () => {
         pickImage,
         takePhoto,
         driver,
-        loading
+        loading,
+        termsAndConditions
     }
 }
 

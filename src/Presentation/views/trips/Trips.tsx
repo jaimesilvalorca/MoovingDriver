@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
+import { DriverContext } from '../../context/DriverContext';
+
 
 export const TripScreen = () => {
   const [completedTrips, setCompletedTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { driver } = useContext(DriverContext); // Asegúrate de importar el contexto correctamente
 
   useEffect(() => {
     const fetchCompletedTrips = async () => {
       try {
-        const response = await fetch('http://45.7.231.169:3000/api/trips/completed');
+        const response = await fetch(`http://45.7.231.169:3000/api/trips/completeddriver/${driver.email}`);
         const data = await response.json();
+        
 
         if (response.ok) {
           setCompletedTrips(data.data);
@@ -25,7 +29,7 @@ export const TripScreen = () => {
     };
 
     fetchCompletedTrips();
-  }, []);
+  }, [driver.email]); // Asegúrate de agregar user.email como dependencia para que se actualice cuando cambie
 
   if (loading) {
     return (
@@ -56,8 +60,6 @@ export const TripScreen = () => {
             <Text style={styles.userEmail}>Destino: {item.destination}</Text>
             <Text style={styles.userEmail}>Distancia: {item.distance} KM</Text>
             <Text style={styles.userEmail}>Precio: ${item.amount}</Text>
-
-            
           </View>
         )}
       />

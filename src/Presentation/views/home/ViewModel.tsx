@@ -49,13 +49,18 @@ const HomeViewModel = () => {
         Linking.openURL('http://45.7.231.169:3000/reset-password').catch((err) => console.error('Error al abrir el enlace', err));
     }
 
+    const termsAndConditions = () => {
+        Linking.openURL('http://45.7.231.169:3000/api/terms').catch((err) => console.error('Error al abrir el enlace', err));
+    }
+
     return {
         ...values,
         driver,
         onChange,
         errorMessage,
         login,
-        forggotPassword
+        forggotPassword,
+        termsAndConditions
     }
 }
 
