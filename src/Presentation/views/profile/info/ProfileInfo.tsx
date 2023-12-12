@@ -90,11 +90,14 @@ export const ProfileInfoScreen = () => {
             source={require('../../../../../assets/car.png')}
             style={styles.formImage}
           />
+          <TouchableOpacity
+          onPress={()=>{navigation.navigate('ProfileUpdateScreen',{driver:driver})}}
+          >
           <View style={styles.formContent}>
             <Text>{(driver?.car.make)?.toLocaleUpperCase()} {(driver?.car.modelCar)?.toLocaleUpperCase()} {(driver?.car.plate)?.toLocaleUpperCase()} {(driver?.car.year)}</Text>
             <Text style={styles.formTextDescription}>Vehiculo Registrado</Text>
-
           </View>
+          </TouchableOpacity>
         </View>
         
         <RoundedButton

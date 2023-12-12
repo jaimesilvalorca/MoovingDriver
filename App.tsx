@@ -9,6 +9,7 @@ import { Driver } from './src/Domain/entities/Driver';
 import { DriverProvider } from './src/Presentation/context/DriverContext';
 
 import { MapScreen } from './src/Presentation/views/mapScreen/Map';
+import TripDetail from './src/Presentation/views/tripDetail/TripDetail';
 
 
 export type RootStackParamList = {
@@ -17,7 +18,9 @@ export type RootStackParamList = {
   DriverTabsNavigator: undefined,
   DriverAddressListScreen: undefined,
   ProfileUpdateScreen: { driver: Driver },
-  MapScreen: {driver:Driver},
+  MapScreen: { driver: Driver },
+  TripDetail: undefined
+  
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -59,6 +62,14 @@ const App = () => {
             component={MapScreen}
             options={{
               headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='TripDetail'
+            component={TripDetail}
+            options={{
+              headerShown: true,
+              title: 'Punto de referencia'
             }}
           />
 
