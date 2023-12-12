@@ -58,8 +58,7 @@ const App = () => {
             name='MapScreen'
             component={MapScreen}
             options={{
-              headerShown: true,
-              title: 'Punto de referencia'
+              headerShown: false,
             }}
           />
 
